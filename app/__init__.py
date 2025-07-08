@@ -1,18 +1,21 @@
 from flask import Flask
-from .extensions import ma
-from .models import db  # Import the db instance from models.py
-from .blueprints.mechanics import mechanics_bp  # Import the mechanics blueprint
-from .blueprints.tickets import tickets_bp  # Import the tickets blueprint
-from .blueprints.customers import customers_bp  # Import the customers blueprint
+from .extensions import ma, limiter, cache
+from .models import db
+from .blueprints.mechanics import mechanics_bp
+from .blueprints.tickets import tickets_bp
+from .blueprints.customers import customers_bp
+
 def create_app(config_name):
     app = Flask(__name__)
     
-    # Load configuration from the specified config name
+    # Load configuration
     app.config.from_object(f'config.{config_name}')
     
-    # Initialize extensions, blueprints, etc.
+    # Initialize extensions
     ma.init_app(app)
-    db.init_app(app) #adding our db extension to our app
+    db.init_app(app)
+    limiter.init_app(app)
+    cache.init_app(app)
     
     # Register blueprints
     app.register_blueprint(mechanics_bp, url_prefix='/mechanics')

@@ -4,9 +4,14 @@ from app.models import Mechanics, db
 from .schemas import mechanic_schema, mechanics_schema
 from marshmallow import ValidationError
 from . import mechanics_bp
+from app.extensions import cache
 
 @mechanics_bp.route('')
-def get_mechanics():    
+@cache.cached(timeout=60)
+def get_mechanics():   
+    """
+    Cached for 60 seconds to reduce DB load for frequent access.
+    """ 
     query = select(Mechanics)
     mechanics = db.session.execute(query).scalars().all()
     return mechanics_schema.jsonify(mechanics)

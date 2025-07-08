@@ -4,9 +4,14 @@ from app.models import Tickets, db, Customers
 from .schemas import ticket_schema, tickets_schema
 from marshmallow import ValidationError
 from . import tickets_bp
+from app.extensions import limiter
 
 @tickets_bp.route('')
+@limiter.limit("10 per minute")
 def get_tickets():
+    """
+    Rate limited to 10 requests per minute per IP to prevent abuse.
+    """
     query = select(Tickets)
     tickets = db.session.execute(query).scalars().all() 
     return tickets_schema.jsonify(tickets)

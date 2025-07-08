@@ -192,7 +192,23 @@
         "documentation": {}
     },
     {
+        "label": "cache",
+        "importPath": "app.extensions",
+        "description": "app.extensions",
+        "isExtraImport": true,
+        "detail": "app.extensions",
+        "documentation": {}
+    },
+    {
         "label": "ma",
+        "importPath": "app.extensions",
+        "description": "app.extensions",
+        "isExtraImport": true,
+        "detail": "app.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "limiter",
         "importPath": "app.extensions",
         "description": "app.extensions",
         "isExtraImport": true,
@@ -213,6 +229,30 @@
         "description": "flask_marshmallow",
         "isExtraImport": true,
         "detail": "flask_marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "Limiter",
+        "importPath": "flask_limiter",
+        "description": "flask_limiter",
+        "isExtraImport": true,
+        "detail": "flask_limiter",
+        "documentation": {}
+    },
+    {
+        "label": "get_remote_address",
+        "importPath": "flask_limiter.util",
+        "description": "flask_limiter.util",
+        "isExtraImport": true,
+        "detail": "flask_limiter.util",
+        "documentation": {}
+    },
+    {
+        "label": "Cache",
+        "importPath": "flask_caching",
+        "description": "flask_caching",
+        "isExtraImport": true,
+        "detail": "flask_caching",
         "documentation": {}
     },
     {
@@ -340,7 +380,7 @@
         "kind": 2,
         "importPath": "app.blueprints.mechanics.routes",
         "description": "app.blueprints.mechanics.routes",
-        "peekOfCode": "def get_mechanics():    \n    query = select(Mechanics)\n    mechanics = db.session.execute(query).scalars().all()\n    return mechanics_schema.jsonify(mechanics)\n@mechanics_bp.route('/<int:id>')\ndef get_mechanic(id):   \n    mechanic = db.session.get(Mechanics, id)\n    if mechanic:\n        return mechanic_schema.jsonify(mechanic), 200\n    return jsonify({\"error\": \"Mechanic not found.\"}), 404",
+        "peekOfCode": "def get_mechanics():   \n    \"\"\"\n    Cached for 60 seconds to reduce DB load for frequent access.\n    \"\"\" \n    query = select(Mechanics)\n    mechanics = db.session.execute(query).scalars().all()\n    return mechanics_schema.jsonify(mechanics)\n@mechanics_bp.route('/<int:id>')\ndef get_mechanic(id):   \n    mechanic = db.session.get(Mechanics, id)",
         "detail": "app.blueprints.mechanics.routes",
         "documentation": {}
     },
@@ -412,7 +452,7 @@
         "kind": 2,
         "importPath": "app.blueprints.tickets.routes",
         "description": "app.blueprints.tickets.routes",
-        "peekOfCode": "def get_tickets():\n    query = select(Tickets)\n    tickets = db.session.execute(query).scalars().all() \n    return tickets_schema.jsonify(tickets)\n@tickets_bp.route('/<int:id>')\ndef get_ticket(id):\n    ticket = db.session.get(Tickets, id)\n    if ticket:\n        return ticket_schema.jsonify(ticket), 200\n    return jsonify({\"error\": \"Ticket not found.\"}), 404",
+        "peekOfCode": "def get_tickets():\n    \"\"\"\n    Rate limited to 10 requests per minute per IP to prevent abuse.\n    \"\"\"\n    query = select(Tickets)\n    tickets = db.session.execute(query).scalars().all() \n    return tickets_schema.jsonify(tickets)\n@tickets_bp.route('/<int:id>')\ndef get_ticket(id):\n    ticket = db.session.get(Tickets, id)",
         "detail": "app.blueprints.tickets.routes",
         "documentation": {}
     },
@@ -502,7 +542,25 @@
         "kind": 5,
         "importPath": "app.extensions",
         "description": "app.extensions",
-        "peekOfCode": "ma = Marshmallow() # Initialize Marshmallow",
+        "peekOfCode": "ma = Marshmallow()\nlimiter = Limiter(key_func=get_remote_address)\ncache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production",
+        "detail": "app.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "limiter",
+        "kind": 5,
+        "importPath": "app.extensions",
+        "description": "app.extensions",
+        "peekOfCode": "limiter = Limiter(key_func=get_remote_address)\ncache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production",
+        "detail": "app.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "cache",
+        "kind": 5,
+        "importPath": "app.extensions",
+        "description": "app.extensions",
+        "peekOfCode": "cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production",
         "detail": "app.extensions",
         "documentation": {}
     },
