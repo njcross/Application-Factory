@@ -13,7 +13,6 @@ class InventorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Inventory
         include_relationships = True
-        load_instance = True
 
     tickets = fields.Nested(TicketBriefSchema, many=True)
 

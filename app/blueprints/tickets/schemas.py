@@ -22,7 +22,6 @@ class TicketsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Tickets
         include_relationships = True
-        load_instance = True
 
     parts = fields.Nested(InventoryBriefSchema, many=True)
     mechanics = fields.Nested(MechanicBriefSchema, many=True)

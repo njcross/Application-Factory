@@ -740,7 +740,7 @@
         "kind": 6,
         "importPath": "app.blueprints.inventory.schemas",
         "description": "app.blueprints.inventory.schemas",
-        "peekOfCode": "class TicketBriefSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_fk = True\n        fields = ('id', 'VIN', 'service_date', 'service_desc')\nclass InventorySchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Inventory\n        include_relationships = True\n        load_instance = True",
+        "peekOfCode": "class TicketBriefSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_fk = True\n        fields = ('id', 'VIN', 'service_date', 'service_desc')\nclass InventorySchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Inventory\n        include_relationships = True\n    tickets = fields.Nested(TicketBriefSchema, many=True)",
         "detail": "app.blueprints.inventory.schemas",
         "documentation": {}
     },
@@ -749,7 +749,7 @@
         "kind": 6,
         "importPath": "app.blueprints.inventory.schemas",
         "description": "app.blueprints.inventory.schemas",
-        "peekOfCode": "class InventorySchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Inventory\n        include_relationships = True\n        load_instance = True\n    tickets = fields.Nested(TicketBriefSchema, many=True)\ninventory_schema = InventorySchema()\ninventories_schema = InventorySchema(many=True)",
+        "peekOfCode": "class InventorySchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Inventory\n        include_relationships = True\n    tickets = fields.Nested(TicketBriefSchema, many=True)\ninventory_schema = InventorySchema()\ninventories_schema = InventorySchema(many=True)",
         "detail": "app.blueprints.inventory.schemas",
         "documentation": {}
     },
@@ -965,7 +965,7 @@
         "kind": 6,
         "importPath": "app.blueprints.tickets.schemas",
         "description": "app.blueprints.tickets.schemas",
-        "peekOfCode": "class CustomerBriefSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Customers\n        fields = (\"id\", \"name\", \"email\", \"phone\")\nclass TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n        load_instance = True\n    parts = fields.Nested(InventoryBriefSchema, many=True)",
+        "peekOfCode": "class CustomerBriefSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Customers\n        fields = (\"id\", \"name\", \"email\", \"phone\")\nclass TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n    parts = fields.Nested(InventoryBriefSchema, many=True)\n    mechanics = fields.Nested(MechanicBriefSchema, many=True)",
         "detail": "app.blueprints.tickets.schemas",
         "documentation": {}
     },
@@ -974,7 +974,7 @@
         "kind": 6,
         "importPath": "app.blueprints.tickets.schemas",
         "description": "app.blueprints.tickets.schemas",
-        "peekOfCode": "class TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n        load_instance = True\n    parts = fields.Nested(InventoryBriefSchema, many=True)\n    mechanics = fields.Nested(MechanicBriefSchema, many=True)\n    customer = fields.Nested(CustomerBriefSchema)\nticket_schema = TicketsSchema()\ntickets_schema = TicketsSchema(many=True)",
+        "peekOfCode": "class TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n    parts = fields.Nested(InventoryBriefSchema, many=True)\n    mechanics = fields.Nested(MechanicBriefSchema, many=True)\n    customer = fields.Nested(CustomerBriefSchema)\nticket_schema = TicketsSchema()\ntickets_schema = TicketsSchema(many=True)",
         "detail": "app.blueprints.tickets.schemas",
         "documentation": {}
     },
