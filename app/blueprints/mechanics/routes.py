@@ -1,10 +1,43 @@
 from flask import jsonify, request
 from sqlalchemy import select
-from app.models import Mechanics, db
 from .schemas import mechanic_schema, mechanics_schema
 from marshmallow import ValidationError
 from . import mechanics_bp
 from app.extensions import cache
+from sqlalchemy import func
+from flask import request
+from app.models import Mechanics, db, service_mechanics
+
+@mechanics_bp.route('/most-active', methods=['GET'])
+def most_active_mechanics():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+
+    stmt = (
+        db.session.query(Mechanics, func.count(service_mechanics.c.ticket_id).label('ticket_count'))
+        .join(service_mechanics)
+        .group_by(Mechanics.id)
+        .order_by(func.count(service_mechanics.c.ticket_id).desc())
+    )
+
+    pagination = stmt.paginate(page=page, per_page=per_page, error_out=False)
+
+    results = [
+        {
+            "id": mech.id,
+            "name": mech.name,
+            "email": mech.email,
+            "ticket_count": count
+        }
+        for mech, count in pagination.items
+    ]
+
+    return jsonify({
+        "mechanics": results,
+        "total": pagination.total,
+        "page": pagination.page,
+        "pages": pagination.pages
+    }), 200
 
 @mechanics_bp.route('')
 @cache.cached(timeout=60)

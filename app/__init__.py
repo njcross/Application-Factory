@@ -4,6 +4,7 @@ from .models import db
 from .blueprints.mechanics import mechanics_bp
 from .blueprints.tickets import tickets_bp
 from .blueprints.customers import customers_bp
+from .blueprints.inventory import inventory_bp
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -21,5 +22,6 @@ def create_app(config_name):
     app.register_blueprint(mechanics_bp, url_prefix='/mechanics')
     app.register_blueprint(tickets_bp, url_prefix='/tickets')
     app.register_blueprint(customers_bp, url_prefix='/customers')
+    app.register_blueprint(inventory_bp, url_prefix='/inventory')
 
     return app
