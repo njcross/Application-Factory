@@ -5,5 +5,9 @@ class DevelopmentConfig:
 class ProductionConfig:
     pass
 
+
 class TestingConfig:
-    pass
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = 'test-secret-key'

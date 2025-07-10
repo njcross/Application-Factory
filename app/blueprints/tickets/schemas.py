@@ -23,6 +23,7 @@ class TicketsSchema(ma.SQLAlchemyAutoSchema):
         model = Tickets
         include_relationships = True
 
+    customer_id = ma.auto_field(required=True)
     parts = fields.Nested(InventoryBriefSchema, many=True)
     mechanics = fields.Nested(MechanicBriefSchema, many=True)
     customer = fields.Nested(CustomerBriefSchema)

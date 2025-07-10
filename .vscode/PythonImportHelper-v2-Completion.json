@@ -288,6 +288,30 @@
         "documentation": {}
     },
     {
+        "label": "Customers",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "Mechanics",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "app.models",
+        "description": "app.models",
+        "isExtraImport": true,
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
         "label": "db",
         "importPath": "app.models",
         "description": "app.models",
@@ -416,6 +440,14 @@
         "documentation": {}
     },
     {
+        "label": "SECRET_KEY",
+        "importPath": "app.extensions",
+        "description": "app.extensions",
+        "isExtraImport": true,
+        "detail": "app.extensions",
+        "documentation": {}
+    },
+    {
         "label": "fields",
         "importPath": "marshmallow_sqlalchemy",
         "description": "marshmallow_sqlalchemy",
@@ -429,6 +461,30 @@
         "description": "marshmallow_sqlalchemy",
         "isExtraImport": true,
         "detail": "marshmallow_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -481,6 +537,14 @@
     },
     {
         "label": "ExpiredSignatureError",
+        "importPath": "jose",
+        "description": "jose",
+        "isExtraImport": true,
+        "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "jwt",
         "importPath": "jose",
         "description": "jose",
         "isExtraImport": true,
@@ -589,6 +653,71 @@
         "description": "app",
         "isExtraImport": true,
         "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "app",
+        "description": "app",
+        "isExtraImport": true,
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "unittest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "unittest",
+        "description": "unittest",
+        "detail": "unittest",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_client",
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "isExtraImport": true,
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "generate_token",
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "isExtraImport": true,
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_client",
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "isExtraImport": true,
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_client",
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "isExtraImport": true,
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_client",
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "isExtraImport": true,
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "generate_token",
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "isExtraImport": true,
+        "detail": "tests.conftest",
         "documentation": {}
     },
     {
@@ -965,7 +1094,7 @@
         "kind": 6,
         "importPath": "app.blueprints.tickets.schemas",
         "description": "app.blueprints.tickets.schemas",
-        "peekOfCode": "class CustomerBriefSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Customers\n        fields = (\"id\", \"name\", \"email\", \"phone\")\nclass TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n    parts = fields.Nested(InventoryBriefSchema, many=True)\n    mechanics = fields.Nested(MechanicBriefSchema, many=True)",
+        "peekOfCode": "class CustomerBriefSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Customers\n        fields = (\"id\", \"name\", \"email\", \"phone\")\nclass TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n    customer_id = ma.auto_field(required=True)\n    parts = fields.Nested(InventoryBriefSchema, many=True)",
         "detail": "app.blueprints.tickets.schemas",
         "documentation": {}
     },
@@ -974,7 +1103,7 @@
         "kind": 6,
         "importPath": "app.blueprints.tickets.schemas",
         "description": "app.blueprints.tickets.schemas",
-        "peekOfCode": "class TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n    parts = fields.Nested(InventoryBriefSchema, many=True)\n    mechanics = fields.Nested(MechanicBriefSchema, many=True)\n    customer = fields.Nested(CustomerBriefSchema)\nticket_schema = TicketsSchema()\ntickets_schema = TicketsSchema(many=True)",
+        "peekOfCode": "class TicketsSchema(ma.SQLAlchemyAutoSchema):\n    class Meta:\n        model = Tickets\n        include_relationships = True\n    customer_id = ma.auto_field(required=True)\n    parts = fields.Nested(InventoryBriefSchema, many=True)\n    mechanics = fields.Nested(MechanicBriefSchema, many=True)\n    customer = fields.Nested(CustomerBriefSchema)\nticket_schema = TicketsSchema()\ntickets_schema = TicketsSchema(many=True)",
         "detail": "app.blueprints.tickets.schemas",
         "documentation": {}
     },
@@ -1123,6 +1252,60 @@
         "documentation": {}
     },
     {
+        "label": "generate_token",
+        "kind": 2,
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "peekOfCode": "def generate_token(customer_id):\n    payload = {\n        'exp': datetime.now(timezone.utc) + timedelta(hours=1),\n        'iat': datetime.now(timezone.utc),\n        'sub': str(customer_id)\n    }\n    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')\ndef get_test_client():\n    app = create_app('TestingConfig')  # Make sure this uses a test DB\n    with app.app_context():",
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "get_test_client",
+        "kind": 2,
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "peekOfCode": "def get_test_client():\n    app = create_app('TestingConfig')  # Make sure this uses a test DB\n    with app.app_context():\n        db.drop_all()\n        db.create_all()\n        # Optional: Add test customer and mechanic\n        customer = Customers(name=\"Test User\", email=\"test@example.com\", phone=\"1234567890\")\n        customer.set_password(\"password\")\n        db.session.add(customer)\n        mechanic = Mechanics(name=\"Test Mechanic\", email=\"mech@example.com\", phone=\"1112223333\", salary=50000)",
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "TestCustomers",
+        "kind": 6,
+        "importPath": "tests.test_customers",
+        "description": "tests.test_customers",
+        "peekOfCode": "class TestCustomers(unittest.TestCase):\n    def setUp(self):\n        self.client = get_test_client()\n        self.token = generate_token(1)\n        self.headers = {'Authorization': f'Bearer {self.token}'}\n    def test_get_customers_success(self):\n        res = self.client.get('/customers')\n        self.assertEqual(res.status_code, 200)\n    def test_get_customer_unauthorized(self):\n        res = self.client.get('/customers/999')  # No token",
+        "detail": "tests.test_customers",
+        "documentation": {}
+    },
+    {
+        "label": "TestInventory",
+        "kind": 6,
+        "importPath": "tests.test_inventories",
+        "description": "tests.test_inventories",
+        "peekOfCode": "class TestInventory(unittest.TestCase):\n    def setUp(self):\n        self.client = get_test_client()\n    def test_list_inventory(self):\n        res = self.client.get('/inventory')\n        self.assertEqual(res.status_code, 200)\n    def test_get_inventory_not_found(self):\n        res = self.client.get('/inventory/9999')\n        self.assertEqual(res.status_code, 404)\n    def test_add_inventory_success(self):",
+        "detail": "tests.test_inventories",
+        "documentation": {}
+    },
+    {
+        "label": "TestMechanics",
+        "kind": 6,
+        "importPath": "tests.test_mechanics",
+        "description": "tests.test_mechanics",
+        "peekOfCode": "class TestMechanics(unittest.TestCase):\n    def setUp(self):\n        self.client = get_test_client()\n    def test_list_mechanics(self):\n        res = self.client.get('/mechanics')\n        self.assertEqual(res.status_code, 200)\n    def test_get_mechanic_not_found(self):\n        res = self.client.get('/mechanics/9999')\n        self.assertEqual(res.status_code, 404)\n    def test_add_mechanic_success(self):",
+        "detail": "tests.test_mechanics",
+        "documentation": {}
+    },
+    {
+        "label": "TestTickets",
+        "kind": 6,
+        "importPath": "tests.test_tickets",
+        "description": "tests.test_tickets",
+        "peekOfCode": "class TestTickets(unittest.TestCase):\n    def setUp(self):\n        self.client = get_test_client()\n        self.token = generate_token(1)\n        self.headers = {'Authorization': f'Bearer {self.token}'}\n        # Create ticket\n        ticket_res = self.client.post('/tickets', json={\n            \"VIN\": \"ABC123\",\n            \"service_date\": \"2025-07-09\",\n            \"service_desc\": \"Brake check\",",
+        "detail": "tests.test_tickets",
+        "documentation": {}
+    },
+    {
         "label": "app",
         "kind": 5,
         "importPath": "app",
@@ -1136,7 +1319,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class DevelopmentConfig:\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:11Oval11@localhost/mydatabase'\nclass ProductionConfig:\n    pass\nclass TestingConfig:\n    pass",
+        "peekOfCode": "class DevelopmentConfig:\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:11Oval11@localhost/mydatabase'\nclass ProductionConfig:\n    pass\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    SECRET_KEY = 'test-secret-key'",
         "detail": "config",
         "documentation": {}
     },
@@ -1145,7 +1328,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class ProductionConfig:\n    pass\nclass TestingConfig:\n    pass",
+        "peekOfCode": "class ProductionConfig:\n    pass\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    SECRET_KEY = 'test-secret-key'",
         "detail": "config",
         "documentation": {}
     },
@@ -1154,7 +1337,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class TestingConfig:\n    pass",
+        "peekOfCode": "class TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    SECRET_KEY = 'test-secret-key'",
         "detail": "config",
         "documentation": {}
     }

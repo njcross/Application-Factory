@@ -1,0 +1,462 @@
+swagger: '2.0'
+info:
+  title: Auto Service API
+  description: Comprehensive API documentation for managing customers, mechanics,
+    tickets, and inventory.
+  version: 1.0.0
+host: 127.0.0.1:5000
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /tickets:
+    get:
+      tags:
+      - tickets
+      summary: Get all service tickets
+      responses:
+        200:
+          description: Array of service tickets
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - tickets
+      summary: Create a new service ticket
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Ticket'
+      responses:
+        201:
+          description: Ticket created
+      security:
+      - bearerAuth: []
+  /tickets/{id}:
+    get:
+      tags:
+      - tickets
+      summary: Get a ticket by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Ticket object
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - tickets
+      summary: Update a ticket by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Ticket'
+      responses:
+        200:
+          description: Ticket updated
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - tickets
+      summary: Delete a ticket by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Ticket deleted
+      security:
+      - bearerAuth: []
+  /tickets/my-tickets:
+    get:
+      tags:
+      - tickets
+      summary: Get tickets for authenticated user
+      responses:
+        200:
+          description: List of user's tickets
+      security:
+      - bearerAuth: []
+  /tickets/{ticket_id}/assign-mechanic/{mechanic_id}:
+    put:
+      tags:
+      - tickets
+      summary: Assign a mechanic to a ticket
+      parameters:
+      - name: ticket_id
+        in: path
+        required: true
+        type: integer
+      - name: mechanic_id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Mechanic assigned
+      security:
+      - bearerAuth: []
+  /tickets/{ticket_id}/remove-mechanic/{mechanic_id}:
+    put:
+      tags:
+      - tickets
+      summary: Remove a mechanic from a ticket
+      parameters:
+      - name: ticket_id
+        in: path
+        required: true
+        type: integer
+      - name: mechanic_id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Mechanic removed
+      security:
+      - bearerAuth: []
+  /tickets/{ticket_id}/edit:
+    put:
+      tags:
+      - tickets
+      summary: Edit mechanic assignments for a ticket
+      parameters:
+      - name: ticket_id
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            add_ids:
+              type: array
+              items:
+                type: integer
+            remove_ids:
+              type: array
+              items:
+                type: integer
+      responses:
+        200:
+          description: Mechanics updated
+      security:
+      - bearerAuth: []
+  /customers:
+    get:
+      tags:
+      - customers
+      summary: List customers (paginated)
+      responses:
+        200:
+          description: Paginated list of customers
+    post:
+      tags:
+      - customers
+      summary: Create a new customer
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerRegistration'
+      responses:
+        201:
+          description: Customer created
+  /customers/login:
+    post:
+      tags:
+      - customers
+      summary: Login customer
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/LoginCredentials'
+      responses:
+        200:
+          description: JWT returned on successful login
+  /customers/{id}:
+    get:
+      tags:
+      - customers
+      summary: Retrieve customer by ID (auth required)
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Customer object
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - customers
+      summary: Update customer (auth required)
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerRegistration'
+      responses:
+        200:
+          description: Customer updated
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - customers
+      summary: Delete customer (auth required)
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Customer deleted
+      security:
+      - bearerAuth: []
+  /mechanics:
+    get:
+      tags:
+      - mechanics
+      summary: List all mechanics (cached)
+      responses:
+        200:
+          description: Mechanics list
+    post:
+      tags:
+      - mechanics
+      summary: Add mechanic
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Mechanic'
+      responses:
+        201:
+          description: Mechanic created
+  /mechanics/{id}:
+    get:
+      tags:
+      - mechanics
+      summary: Get mechanic by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Mechanic object
+    put:
+      tags:
+      - mechanics
+      summary: Update mechanic
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Mechanic'
+      responses:
+        200:
+          description: Mechanic updated
+    delete:
+      tags:
+      - mechanics
+      summary: Delete mechanic
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Mechanic deleted
+  /mechanics/most-active:
+    get:
+      tags:
+      - mechanics
+      summary: List most active mechanics by ticket count
+      responses:
+        200:
+          description: Sorted mechanic stats
+  /inventory:
+    get:
+      tags:
+      - inventory
+      summary: List all inventory items
+      responses:
+        200:
+          description: Inventory list
+    post:
+      tags:
+      - inventory
+      summary: Add inventory item
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/InventoryItem'
+      responses:
+        201:
+          description: Inventory item created
+  /inventory/{id}:
+    get:
+      tags:
+      - inventory
+      summary: Get item by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Item found
+    put:
+      tags:
+      - inventory
+      summary: Update inventory item
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/InventoryItem'
+      responses:
+        200:
+          description: Item updated
+    delete:
+      tags:
+      - inventory
+      summary: Delete inventory item
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Item deleted
+definitions:
+  Ticket:
+    type: object
+    properties:
+      VIN:
+        type: string
+      service_date:
+        type: string
+      service_desc:
+        type: string
+      customer_id:
+        type: integer
+    required:
+    - VIN
+    - service_date
+    - service_desc
+    - customer_id
+  LoginCredentials:
+    type: object
+    required:
+    - email
+    - password
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+      message:
+        type: string
+  CustomerRegistration:
+    type: object
+    required:
+    - name
+    - email
+    - phone
+    - password
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      password:
+        type: string
+  Mechanic:
+    type: object
+    required:
+    - name
+    - email
+    - phone
+    - salary
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      salary:
+        type: number
+  InventoryItem:
+    type: object
+    required:
+    - name
+    - price
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
