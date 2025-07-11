@@ -4,9 +4,9 @@ info:
   description: Comprehensive API documentation for managing customers, mechanics,
     tickets, and inventory.
   version: 1.0.0
-host: 127.0.0.1:5000
+host: application-factory-1.onrender.com/
 schemes:
-- http
+- https
 consumes:
 - application/json
 produces:
