@@ -1312,7 +1312,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class DevelopmentConfig:\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:11Oval11@localhost/mydatabase'\nclass ProductionConfig:\n    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')\n    CACHE_TYPE = \"SimpleCache\"\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False",
+        "peekOfCode": "class DevelopmentConfig:\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:11Oval11@localhost/mydatabase'\n    CACHE_TYPE = \"SimpleCache\"\nclass ProductionConfig:\n    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')\n    CACHE_TYPE = \"SimpleCache\"\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'",
         "detail": "config",
         "documentation": {}
     },
@@ -1321,7 +1321,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class ProductionConfig:\n    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')\n    CACHE_TYPE = \"SimpleCache\"\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False",
+        "peekOfCode": "class ProductionConfig:\n    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')\n    CACHE_TYPE = \"SimpleCache\"\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    CACHE_TYPE = \"SimpleCache\"",
         "detail": "config",
         "documentation": {}
     },
@@ -1330,7 +1330,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False",
+        "peekOfCode": "class TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    CACHE_TYPE = \"SimpleCache\"",
         "detail": "config",
         "documentation": {}
     },
@@ -1339,7 +1339,7 @@
         "kind": 5,
         "importPath": "flask_app",
         "description": "flask_app",
-        "peekOfCode": "app = create_app('ProductionConfig') \n# Create the table\nwith app.app_context():\n\tdb.create_all()\napp.run()",
+        "peekOfCode": "app = create_app('ProductionConfig') \n# Create the table\nwith app.app_context():\n\tdb.create_all()",
         "detail": "flask_app",
         "documentation": {}
     }
