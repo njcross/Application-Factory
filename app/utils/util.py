@@ -2,7 +2,9 @@ from datetime import datetime, timedelta, timezone
 from functools import wraps
 from flask import request, jsonify
 from jose import jwt, JWTError, ExpiredSignatureError
-from app.extensions import SECRET_KEY  # load from config
+import os
+
+SECRET_KEY = os.environ.get('SECRET_KEY') or "super secret secrets"  # load from config
 
 def encode_token(customer_id):
     payload = {

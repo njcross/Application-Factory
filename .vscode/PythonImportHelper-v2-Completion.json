@@ -432,22 +432,6 @@
         "documentation": {}
     },
     {
-        "label": "SECRET_KEY",
-        "importPath": "app.extensions",
-        "description": "app.extensions",
-        "isExtraImport": true,
-        "detail": "app.extensions",
-        "documentation": {}
-    },
-    {
-        "label": "SECRET_KEY",
-        "importPath": "app.extensions",
-        "description": "app.extensions",
-        "isExtraImport": true,
-        "detail": "app.extensions",
-        "documentation": {}
-    },
-    {
         "label": "fields",
         "importPath": "marshmallow_sqlalchemy",
         "description": "marshmallow_sqlalchemy",
@@ -549,6 +533,15 @@
         "description": "jose",
         "isExtraImport": true,
         "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
@@ -1144,11 +1137,20 @@
         "documentation": {}
     },
     {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "app.utils.util",
+        "description": "app.utils.util",
+        "peekOfCode": "SECRET_KEY = os.environ.get('SECRET_KEY') or \"super secret secrets\"  # load from config\ndef encode_token(customer_id):\n    payload = {\n        'exp': datetime.now(timezone.utc) + timedelta(hours=1),\n        'iat': datetime.now(timezone.utc),\n        'sub': str(customer_id)\n    }\n    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')\ndef token_required(f):\n    @wraps(f)",
+        "detail": "app.utils.util",
+        "documentation": {}
+    },
+    {
         "label": "ma",
         "kind": 5,
         "importPath": "app.extensions",
         "description": "app.extensions",
-        "peekOfCode": "ma = Marshmallow()\nlimiter = Limiter(key_func=get_remote_address)\ncache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production\nSECRET_KEY = \"a super secret, secret key\"",
+        "peekOfCode": "ma = Marshmallow()\nlimiter = Limiter(key_func=get_remote_address)\ncache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production",
         "detail": "app.extensions",
         "documentation": {}
     },
@@ -1157,7 +1159,7 @@
         "kind": 5,
         "importPath": "app.extensions",
         "description": "app.extensions",
-        "peekOfCode": "limiter = Limiter(key_func=get_remote_address)\ncache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production\nSECRET_KEY = \"a super secret, secret key\"",
+        "peekOfCode": "limiter = Limiter(key_func=get_remote_address)\ncache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production",
         "detail": "app.extensions",
         "documentation": {}
     },
@@ -1166,16 +1168,7 @@
         "kind": 5,
         "importPath": "app.extensions",
         "description": "app.extensions",
-        "peekOfCode": "cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production\nSECRET_KEY = \"a super secret, secret key\"",
-        "detail": "app.extensions",
-        "documentation": {}
-    },
-    {
-        "label": "SECRET_KEY",
-        "kind": 5,
-        "importPath": "app.extensions",
-        "description": "app.extensions",
-        "peekOfCode": "SECRET_KEY = \"a super secret, secret key\"",
+        "peekOfCode": "cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production",
         "detail": "app.extensions",
         "documentation": {}
     },
@@ -1270,6 +1263,15 @@
         "documentation": {}
     },
     {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "peekOfCode": "SECRET_KEY = os.environ.get('SECRET_KEY') or \"super secret secrets\"\ndef generate_token(customer_id):\n    payload = {\n        'exp': datetime.now(timezone.utc) + timedelta(hours=1),\n        'iat': datetime.now(timezone.utc),\n        'sub': str(customer_id)\n    }\n    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')\ndef get_test_client():\n    app = create_app('TestingConfig')  # Make sure this uses a test DB",
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
         "label": "TestCustomers",
         "kind": 6,
         "importPath": "tests.test_customers",
@@ -1306,20 +1308,11 @@
         "documentation": {}
     },
     {
-        "label": "app",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "app = create_app('DevelopmentConfig') \n# Create the table\nwith app.app_context():\n\tdb.create_all()\napp.run()",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
         "label": "DevelopmentConfig",
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class DevelopmentConfig:\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:11Oval11@localhost/mydatabase'\nclass ProductionConfig:\n    pass\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    SECRET_KEY = 'test-secret-key'",
+        "peekOfCode": "class DevelopmentConfig:\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:11Oval11@localhost/mydatabase'\nclass ProductionConfig:\n    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI)\n    CACHE_TYPE = \"SimpleCache\"\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False",
         "detail": "config",
         "documentation": {}
     },
@@ -1328,7 +1321,7 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class ProductionConfig:\n    pass\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    SECRET_KEY = 'test-secret-key'",
+        "peekOfCode": "class ProductionConfig:\n    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI)\n    CACHE_TYPE = \"SimpleCache\"\nclass TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False",
         "detail": "config",
         "documentation": {}
     },
@@ -1337,8 +1330,17 @@
         "kind": 6,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "class TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False\n    SECRET_KEY = 'test-secret-key'",
+        "peekOfCode": "class TestingConfig:\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'\n    SQLALCHEMY_TRACK_MODIFICATIONS = False",
         "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "flask_app",
+        "description": "flask_app",
+        "peekOfCode": "app = create_app('ProductionConfig') \n# Create the table\nwith app.app_context():\n\tdb.create_all()\napp.run()",
+        "detail": "flask_app",
         "documentation": {}
     }
 ]

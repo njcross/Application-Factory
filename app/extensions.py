@@ -6,5 +6,3 @@ from flask_caching import Cache
 ma = Marshmallow()
 limiter = Limiter(key_func=get_remote_address)
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  # Replace with Redis in production
-
-SECRET_KEY = "a super secret, secret key"

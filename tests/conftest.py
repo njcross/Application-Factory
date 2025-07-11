@@ -2,8 +2,10 @@
 from datetime import datetime, timedelta, timezone
 from jose import jwt
 from app import create_app
-from app.extensions import SECRET_KEY
 from app.models import Customers, Mechanics, db 
+import os
+
+SECRET_KEY = os.environ.get('SECRET_KEY') or "super secret secrets"
 
 
 def generate_token(customer_id):
